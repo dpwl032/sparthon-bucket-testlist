@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2024 신년계획 버킷리스트</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <style>
+    .bg {
+      background-image: url("./벚꽃.gif");
+      background-size: cover; /*내 화면에 맞게 설정*/
+      background-repeat: no-repeat; /*혹시라도 화면비율이 맞지 않는다고해도, 이미지가 반복되지 않게 설정*/
+      margin: 0 auto;
+      background-color: #141617;
+    }
+
+    .title {
+      margin-top: 50px;
+      color: #e8344e;
+    }
+
+    .msg {
+      color: white;
+      margin-bottom: 48px;
+    }
+    .bucket {
+      width: 160px;
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+    }
+    .img1 {
+      background-image: url("./Bucket01.png");
+      color: white;
+    }
+
+    .img2 {
+      background-image: url("./Bucket02.png");
+      color: #e8344e;
+    }
+
+    .img3 {
+      background-image: url("./Bucket03.png");
+      color: #e8344e;
+    }
+
+    .img4 {
+      background-image: url("./Bucket04.png");
+      color: white;
+    }
+
+    .img5 {
+      background-image: url("./Bucket05.png");
+      color: white;
+    }
+
+    .img6 {
+      background-image: url("./Bucket06.png");
+      color: #e8344e;
+    }
+  </style>
+  <body class="bg center">
+    <h1 class="title">SPARTHON Bucket List</h1>
+    <p class="msg">꿈을 꾸는 것이 아닌, 이루는 것이다!</p>
+    <div>
+      <input type="text" id="bucketInsert" />
+      <button id="bucketSubmit">입력하기</button>
+    </div>
+    <div class="flex-row wrap">
+      <div class="bucket img1 center">
+        나만의 웹 만들기 <button id="deleteBucket">x</button>
+      </div>
+      <div class="bucket img2 center">
+        바디프로필 찍기 <button id="deleteBucket">x</button>
+      </div>
+      <div class="bucket img3 center">
+        취업 성공하기 <button id="deleteBucket">x</button>
+      </div>
+      <div class="bucket img4 center">
+        스파르타 무사히 수료하기 <button id="deleteBucket">x</button>
+      </div>
+      <div class="bucket img5 center">
+        10킬로그램 증량! <button id="deleteBucket">x</button>
+      </div>
+      <div class="bucket img6 center">
+        내가 만든 웹사이트 자랑하기 <button id="deleteBucket">x</button>
+      </div>
+    </div>
+    <script>
+      // 페이지 로드 시 이전 상태 복원
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const buckets = document.querySelectorAll(".bucket");
+        buckets.forEach((bucket, index) => {
+          // 로컬 스토리지에서 상태 읽기
+          const isDone = localStorage.getItem("bucket" + index) === "done";
+          if (isDone) {
+            bucket.classList.add("done");
+          }
+        });
+      });
+
+      // 버킷 리스트 클릭 이벤트
+      const buckets = document.querySelectorAll(".bucket");
+      const deleteBtn = document.getElementById("deleteBucket");
+      buckets.forEach((bucket, index) => {
+        bucket.addEventListener("click", function () {
+          // 클래스 토글
+          bucket.classList.toggle("done");
+
+          // 로컬 스토리지에 상태 저장
+          if (bucket.classList.contains("done")) {
+            alert("달성을 축하합니다.");
+            localStorage.setItem("bucket" + index, "done");
+          } else {
+            localStorage.setItem("bucket" + index, "");
+          }
+        });
+
+        deleteBtn.addEventListener("click", function () {
+          alert("test");
+          bucket.style.display = "none";
+        });
+        //삭제
+      });
+
+      const bucketBtn = document.getElementById("bucketSubmit");
+      const addBtn = document.getElementById("deleteBucket");
+      const bucketWrap = document.querySelector(".flex-row.wrap");
+
+      bucketBtn.addEventListener("click", function () {
+        var newBucket = document.createElement("div");
+        var inputValue = document.getElementById("bucketInsert").value;
+        const newButton = document.createElement("button");
+        newButton.textContent = "x";
+        newBucket.textContent = inputValue;
+        newBucket.appendChild(newButton);
+        newBucket.classList.add("bucket");
+        newBucket.classList.add("img5");
+        newBucket.classList.add("center");
+        bucketWrap.appendChild(newBucket);
+      });
+    </script>
+  </body>
+</html>
